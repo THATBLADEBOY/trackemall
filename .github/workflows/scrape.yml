@@ -1,0 +1,20 @@
+# the action is a scheduled task to run the puppeteer program
+# in the actions directory. it runs every night at 11:00pm CST
+
+name: "Scrape Ebay Listings"
+on:
+  schedule:
+    - cron: "0 23 * * *"
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Install dependencies
+        run: npm ci
+      - name: Run puppeteer
+        run: ts-node actions/scrapeEbayCardData.ts
