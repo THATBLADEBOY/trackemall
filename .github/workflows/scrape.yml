@@ -1,27 +1,29 @@
-# the action is a scheduled task to run the puppeteer program
-# in the actions directory. it runs every night at 11:00pm CST
-# it uses pnpm to install the dependencies and then runs the
-# ts-node command to run the program
+name: Scrape eBay Listings
 
-name: "Scrape Ebay Listings"
 on:
-  schedule:
-    - cron: "0 23 * * *"
   push:
     branches:
-      - main
+      - main # Change this to your desired branch
+
 jobs:
-  scrape:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Install Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: "18.x"
-      - name: Go to actions directory
-        run: cd actions
+          node-version: 14 # You can change this to your preferred Node.js version
+
       - name: Install dependencies
-        run: pnpm install
-      - name: Run program
-        run: pnpm run start-ebay
+        run: npm install
+
+      - name: Build TypeScript
+        run: npm run build # You can change this if your build script is different
+
+      - name: Run Puppeteer script
+        run: node actions/scrapeEbayListings.js # Make sure to adjust the path to your TypeScript file
+
