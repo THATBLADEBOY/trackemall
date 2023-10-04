@@ -1,5 +1,7 @@
 # the action is a scheduled task to run the puppeteer program
 # in the actions directory. it runs every night at 11:00pm CST
+# it uses pnpm to install the dependencies and then runs the
+# ts-node command to run the program
 
 name: "Scrape Ebay Listings"
 on:
@@ -16,10 +18,10 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
-      - name: "Change directory to actions"
-        run: "cd actions"
+          node-version: "18.x"
+      - name: Go to actions directory
+        run: cd actions
       - name: Install dependencies
-        run: npm i
-      - name: Run Puppeteer
-        run: ts-node scrapeEbayCardData.ts
+        run: pnpm install
+      - name: Run program
+        run: pnpm run start-ebay
