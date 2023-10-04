@@ -22,4 +22,4 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Run Puppeteer
-        run: npm start-ebay
+        run: ts-node scrapeEbayCardData.ts
