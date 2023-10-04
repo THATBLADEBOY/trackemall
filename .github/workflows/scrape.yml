@@ -18,12 +18,9 @@ jobs:
         with:
           node-version: 14 # You can change this to your preferred Node.js version
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build TypeScript
-        run: npm run build # You can change this if your build script is different
-
       - name: Run Puppeteer script
-        run: node actions/scrapeEbayListings.js # Make sure to adjust the path to your TypeScript file
-
+        run: |
+          cd actions
+          npm install
+          npm run build
+          node ./dist/scrapeEbayListings.js
