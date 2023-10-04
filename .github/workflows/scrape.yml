@@ -17,9 +17,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: "Change directory to actions"
+        run: "cd actions"
       - name: Install dependencies
         run: npm i
-      - name: Compile TypeScript to JavaScript
-        run: npm run build
-      - name: Run scraper
-        run: node dist/actions/scrapeEbayCardData.js
+      - name: Run Puppeteer
+        run: npm start-ebay
